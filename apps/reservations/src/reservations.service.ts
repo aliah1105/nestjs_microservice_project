@@ -7,24 +7,31 @@ import { ReservationRepository } from './reservation.repository';
 export class ReservationsService {
   constructor(
     private readonly reservationRepository: ReservationRepository
-  ) {}
+  ) { }
   create(createReservationDto: CreateReservationDto) {
-    return this.reservationRepository.create(CreateReservationDto);
+    return this.reservationRepository.create({
+      ...createReservationDto,
+      userId: "1234",
+      timestamps: new Date(),
+    });
   }
 
   findAll() {
-    return `This action returns all reservations`;
-  }
-  
-  findOne(id: number) {
-    return `This action returns a #${id} reservation`;
+    return this.reservationRepository.find({});
   }
 
-  update(id: number, updateReservationDto: UpdateReservationDto) {
-    return `This action updates a #${id} reservation`;
+  findOne(_id: string) {
+    return this.reservationRepository.findOne({ _id });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} reservation`;
+  update(_id: string, updateReservationDto: UpdateReservationDto) {
+    return this.reservationRepository.findOneAndUpdate(
+      { _id },
+      { $set: updateReservationDto }
+    );
+  }
+
+  remove(_id: string) {
+    return this.reservationRepository.findOneAndDelete({ _id });
   }
 }
