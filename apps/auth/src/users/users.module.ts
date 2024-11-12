@@ -8,13 +8,17 @@ import { UsersRepository } from './users.repository';
 @Module({
   imports: [
     DatabaseModule,
-    DatabaseModule.forFeature([{
-    name: UsersDocument.name, schema: UserSchema,
-    collection: 'users' // Replace 'users' with your actual MongoDB collection name.
-  }]),
-  LoggerModule
-],
+    DatabaseModule.forFeature([
+      {
+        name: UsersDocument.name,
+        schema: UserSchema,
+        collection: 'users', // Replace 'users' with your actual MongoDB collection name.
+      },
+    ]),
+    LoggerModule,
+  ],
   controllers: [UsersController],
-  providers: [UsersService, UsersRepository]
+  providers: [UsersService, UsersRepository],
+  exports: [UsersService]
 })
-export class UsersModule { }
+export class UsersModule {}
