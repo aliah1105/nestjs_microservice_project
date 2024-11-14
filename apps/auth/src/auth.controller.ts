@@ -10,7 +10,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(LocalAuthGaurd)
-  @Post('login')
+  @Post('/login')
   async login(
     @CurrentUserDecorator() user: UsersDocument,
     @Res({ passthrough: true }) response: Response
